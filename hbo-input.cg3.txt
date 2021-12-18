@@ -1,0 +1,25 @@
+; Genesis 1:1
+"<בְּ>"
+	"ב" ADP pr @case #1->2
+"<רֵאשִׁ֖י>"
+	"ראשׁית" NOUN n f sg @obl #2->3
+"<בָּרָ֣>"
+	"ברא" VERB v perf m sg p3 @root #3->0
+"<אֱלֹה>"
+	"אלהים" NOUN n m pl @nsubj #4->3
+"<אֵ֥>"
+	"את" ADP pr @case #5->7
+"<הַ>"
+	"ה" DET det def @det #6->7
+"<שָּׁמַ֖>"
+	"שׁמים" NOUN n m pl @obj #7->3
+"<וְ>"
+	"ו" CCONJ conjcoo @cc #8->11
+"<אֵ֥>"
+	"את" ADP pr @case #9->11
+"<הָ>"
+	"ה" DET det def @det #10->11
+"<אָֽרֶ>"
+	"ארץ" NOUN n m sg @conj #11->7
+"<׃>"
+	"׃" PUNCT punct @punct #12->3
