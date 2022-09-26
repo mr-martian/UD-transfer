@@ -1,0 +1,21 @@
+_	cnjcoo	<>	_	CCONJ	_
+_	adj	<>	_	ADJ	_
+# TODO: smixut participles
+_	n	<>	_	NOUN	_
+_	v	<>	_	VERB	_
+_	pr	<>	_	ADP	_
+_	np	<>	_	PROPN	_
+_	det.def	<>	_	DET	PronType=Art
+
+_	inf	<>	_	_	VerbForm=Inf
+
+_	p1	<>	_	_	Person=1
+_	p2	<>	_	_	Person=2
+_	p3	<>	_	_	Person=3
+
+_	m	<>	_	_	Gender=Masc
+_	f	<>	_	_	Gender=Fem
+
+_	sg	<>	_	_	Number=Sing
+_	du	<>	_	_	Number=Dual
+_	pl	<>	_	_	Number=Plur
