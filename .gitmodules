@@ -1,0 +1,21 @@
+[submodule "cg/apertium-eng-spa"]
+	path = cg/apertium-eng-spa
+	url = git@github.com:apertium/apertium-eng-spa.git
+[submodule "cg/UD_English-PUD"]
+	path = cg/UD_English-PUD
+	url = git@github.com:UniversalDependencies/UD_English-PUD.git
+[submodule "cg/UD_Spanish-PUD"]
+	path = cg/UD_Spanish-PUD
+	url = git@github.com:UniversalDependencies/UD_Spanish-PUD.git
+[submodule "cg/apertium-fra-eng"]
+	path = cg/apertium-fra-eng
+	url = git@github.com:apertium/apertium-fra-eng.git
+[submodule "cg/apertium-eng"]
+	path = cg/apertium-eng
+	url = git@github.com:apertium/apertium-eng.git
+[submodule "cg/apertium-fra"]
+	path = cg/apertium-fra
+	url = git@github.com:apertium/apertium-fra.git
+[submodule "cg/UD_French-PUD"]
+	path = cg/UD_French-PUD
+	url = git@github.com:UniversalDependencies/UD_French-PUD.git

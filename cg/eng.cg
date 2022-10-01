@@ -1,0 +1,32 @@
+LIST ADJ = adj ;
+LIST ADV = adv ;
+LIST NOUN = n ;
+LIST VERB = vblex ;
+
+SECTION
+
+# Move an adjective and all its dependents
+# to before the noun it depends on
+# but only if the rightmost adjective child of said noun
+# is the adjective that we're trying to move
+# (this ensures that they end up in the order we probably want
+# when translating noun-adj to adj-noun)
+MOVE WITHCHILD (*) ADJ BEFORE (pA NOUN LINK rrrc ADJ LINK 0 _TARGET_) ;
+
+SECTION VP ;
+LIST Modals = ("will" vbmod @aux:mood) ("may" vbmod @aux:mood) ("do" vbdo) ;
+LIST HaveAux = ("have" vbhaver @aux:pass) ("have" vbhaver @aux:tense) ;
+LIST NotAdv = ("not" adv @advmod) ;
+
+# TODO: tags not quite right
+ADDCOHORT ("<do>" "do" vbdo pres) BEFORE VERB
+          IF (c NotAdv) (NEGATE c Modals) (NEGATE c HaveAux) ;
+SETPARENT ("<do>" "do" vbdo) (NOT p (*)) TO (1 VERB) ;
+
+MOVE WITHCHILD (*) Modals BEFORE (p VERB) ;
+MOVE WITHCHILD (*) NotAdv (s Modals) BEFORE (p VERB) ;
+MOVE WITHCHILD (*) HaveAux BEFORE (p VERB) ;
+MOVE WITHCHILD (*) NotAdv (NEGATE s Modals )BEFORE (p VERB) ;
+
+# TODO: refine this
+MOVE WITHCHILD (*) ADV BEFORE (p VERB) ;

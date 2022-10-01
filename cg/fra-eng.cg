@@ -1,0 +1,32 @@
+MAPPING-PREFIX = % ;
+
+LIST ADJ = adj ;
+LIST NOUN = n ;
+LIST VERB = vblex ;
+LIST VorAUX = vblex vbser vbhaver ;
+LIST @aux:pass = @aux:pass ;
+
+LIST Gen = f m ;
+LIST Num = sg pl ;
+
+SECTION
+
+ADD (pp) TARGET VERB IF (c @aux:pass) ;
+SUBSTITUTE Num (*) VERB + (pp) ;
+
+SUBSTITUTE Gen (*) VorAUX ;
+SUBSTITUTE Gen (*) ADJ ;
+SUBSTITUTE Num (*) ADJ ;
+
+REMCOHORT (det def @det) IF (p (np)) ;
+
+ADDCOHORT ("<may>" "may" vbmod pres @aux:mood) BEFORE (cni) ;
+SETPARENT ("may" vbmod) (NOT p (*)) TO (1* VERB) ;
+
+ADDCOHORT ("<will>" "will" vbmod pres @aux:mood)
+		  BEFORE (fti) (NEGATE c ("will" vbmod)) (NOT -1 ("will" vbmod)) ;
+SETPARENT ("will" vbmod) (NOT p (*)) TO (1* VERB) ;
+
+SUBSTITUTE (cni) (inf) VorAUX IF (-1 ("may" vbmod)) ;
+
+REMCOHORT ("no" adv @advmod) IF (s ("<pas>" sl:adv sl:@advmod)) ;

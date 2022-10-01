@@ -3,17 +3,18 @@
 import re
 
 class LU:
-    def __init__(self, idx=1, head=-1, rel='', spaceafter=True):
+    def __init__(self, lem='', surf='', idx=1, head=-1, rel='', spaceafter=True):
+        self.lem = lem
+        self.surf = surf
         self.idx = idx
         self.head = head
         self.rel = rel
         self.spaceafter = spaceafter
 
 class ApertiumLU(LU):
-    def __init__(self, lem, tags, *args, **kwargs):
+    def __init__(self, tags=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.lem = lem
-        self.tags = tags
+        self.tags = tags or []
     def match(self, other):
         if self.lem and self.lem != other.lem:
             return False
@@ -27,7 +28,8 @@ class ApertiumLU(LU):
             self.lem = other.lem
         self.tags += other.tags
     def to_string(self):
-        pieces = [self.lem] + [f'<{t}>' for t in self.tags]
+        lm = self.lem.replace('/', '\\/').replace('$', '\\$')
+        pieces = [lm] + [f'<{t}>' for t in self.tags]
         if self.rel:
             pieces.append(f'<@{self.rel}>')
         if self.head != -1:
@@ -38,11 +40,10 @@ class ApertiumLU(LU):
         return ret
 
 class UDLU(LU):
-    def __init__(self, lem, pos, feats, *args, **kwargs):
+    def __init__(self, pos='', feats=None, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.lem = lem
         self.pos = pos
-        self.feats = feats
+        self.feats = feats or []
     def match(self, other):
         if self.lem and self.lem != other.lem:
             return False
@@ -107,14 +108,15 @@ def parse_rules(stream):
         if len(ls) != 6:
             # TODO: maybe error or warn here?
             continue
-        ap = ApertiumLU(conll_val(ls, 0), conll_list(ls, 1, '.'))
-        ud = UDLU(conll_val(ls, 3), conll_val(ls, 4), conll_list(ls, 5, '|'))
+        ap = ApertiumLU(lem=conll_val(ls, 0), tags=conll_list(ls, 1, '.'))
+        ud = UDLU(lem=conll_val(ls, 3), pos=conll_val(ls, 4),
+                  feats=conll_list(ls, 5, '|'))
         # TODO: conll_validate <, <>, >
         rules.append(ConversionRule(ap, conll_val(ls, 2), ud))
     return rules
 
 def ap2ud(ap, rules):
-    ud = UDLU('', '', [], idx=ap.idx, head=ap.head, rel=ap.rel)
+    ud = UDLU(idx=ap.idx, head=ap.head, rel=ap.rel)
     for rl in rules:
         rl.to_ud(ap, ud)
     if ap.lem:
@@ -122,7 +124,7 @@ def ap2ud(ap, rules):
     return ud
 
 def ud2ap(ud, rules):
-    ap = ApertiumLU('', [], idx=ud.idx, head=ud.head, rel=ud.rel)
+    ap = ApertiumLU(idx=ud.idx, head=ud.head, rel=ud.rel)
     for rl in rules:
         rl.to_ap(ud, ap)
     if ud.lem:
@@ -186,7 +188,7 @@ def stream_ap2ud(instream, outstream, rules):
                 else:
                     line, l = re_trim(line, ap_lem_re)
                     lem += l
-            words.append(ApertiumLU(lem, tags,
+            words.append(ApertiumLU(lem=lem, tags=tags,
                                     head=head, rel=rel, idx=len(words)+1))
         if not words:
             continue
@@ -211,7 +213,9 @@ def stream_ud2ap(instream, outstream, rules):
             # skip enhanced deps for now
             continue
         head = conll_val(ls, 6)
-        ud = UDLU(conll_val(ls, 2), conll_val(ls, 3), conll_list(ls, 5, '|'),
+        # use surf if lemma missing
+        lem = conll_val(ls, 2) or conll_val(ls, 1)
+        ud = UDLU(lem=lem, pos=conll_val(ls, 3), feats=conll_list(ls, 5, '|'),
                   head=(int(head) if head else -1), idx=int(ls[0]),
                   rel=conll_val(ls, 7),
                   spaceafter=('SpaceAfter=No' not in ls[9]))

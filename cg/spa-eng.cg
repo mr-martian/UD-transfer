@@ -1,0 +1,3 @@
+LIST ADJ = adj ;
+LIST NOUN = n ;
+LIST VERB = vblex ;
