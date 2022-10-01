@@ -1,0 +1,88 @@
+,	cm	<>	,	PUNCT	_
+.	sent	<>	.	PUNCT	_
+"	quot	<>	"	PUNCT	_
+«	lquot	<>	«	PUNCT	_
+-	guio	<>	-	PUNCT	_
+(	lpar	<>	(	PUNCT	_
+)	rpar	<>	)	PUNCT	_
+?	sent	<>	?	PUNCT	_
+:	sent	<>	:	PUNCT	_
+;	sent	<>	;	PUNCT	_
+…	sent	<>	…	PUNCT	_
+--	sent	<>	--	PUNCT	_
+'	quot	<>	'	PUNCT	_
+
+il	det.def	<>	il	DET	Definite=Def|PronType=Art
+il	det.def	<	il	DET	_
+un	det.ind	<	uno	DET	_
+alcun	det.ind	<>	alcuno	DET	_
+chiunque	prn.tn.mf	<>	chunque	PRON	_
+si	prn.pro.ref.p3.mf	<>	si	PRON	Person=3
+suo	det.pos	<>	suo	PRON	PronType=Prs
+lo	prn.pro.p3.nt	<>	lo	PRON	Case=Acc|Gender=Masc|Number=Sing|Person=3
+altro	det.ind	<>	altro	DET	_
+che	prn.itg	<>	che	PRON	_
+loro	det.pos	<>	loro	PRON	Person=3
+molto	det.ind	<>	molto	DET	_
+ogni	det.ind	<>	ogni	DET	_
+proprio	adj	<>	proprio	PRON	Person=3
+quale	prn.itg	<>	quale	PRON	_
+
+venire	vblex	<>	venire	AUX	_
+essere	vbser	<>	essere	AUX	_
+avere	vbhaver	<>	avere	AUX	_
+dovere	vblex	<>	dovere	AUX	_
+potere	vbmod	<>	potere	AUX	_
+stare	vblex	<>	stare	AUX	_
+sapere	vblex	<>	sapere	AUX	_
+volere	vbmod	<>	volere	AUX	_
+
+mentre	cnjadv	<>	mentre	SCONJ	_
+a	pr	<>	ad	ADP	_
+che	cnjsub	<>	che	CCONJ	_
+che	cnjsub	<	che	ADP	_
+quando	rel.adv	<>	quando	SCONJ	_
+perché	cnjadv	<>	perché	SCONJ	_
+
+_	adv	<>	_	ADV	_
+_	cnjcoo	<>	_	CCONJ	_
+_	cnjsub	<>	_	SCONJ	_
+_	adj	<>	_	ADJ	_
+_	n	<>	_	NOUN	_
+_	vblex	<>	_	VERB	_
+_	pr	<>	_	ADP	_
+_	np	<>	_	PROPN	_
+_	num.mf.sp	<>	_	NUM	_
+_	det.pos	<>	_	DET	Poss=Yes
+_	det	<>	_	DET	_
+_	prn	<>	_	PRON	_
+
+_	pro	<>	_	_	Case=Acc
+
+_	def	<>	_	_	Definite=Def
+_	ind	<>	_	_	Definite=Ind
+
+_	inf	<>	_	_	VerbForm=Inf
+_	cni	<>	_	_	Mood=Cnd|Tense=Pres
+_	fti	<>	_	_	Mood=Ind|Tense=Fut
+_	pres	<>	_	_	Tense=Pres|Mood=Ind
+_	past	<>	_	_	Tense=Past
+_	pp	<>	_	_	VerbForm=Part|Tense=Past
+_	pii	<>	_	_	Aspect=Imp|VerbForm=Fin|Mood=Ind|Tense=Past
+_	ger	<>	_	_	Tense=Pres|VerbForm=Part
+_	ifi	<>	_	_	Aspect=Perf|Mood=Ind|Tense=Past
+_	ifi	<>	_	_	Aspect=Perf|Mood=Ind|Tense=Past
+
+_	p1	<>	_	_	Person=1
+_	p2	<>	_	_	Person=2
+_	p3	<>	_	_	Person=3
+
+_	m	<>	_	_	Gender=Masc
+_	f	<>	_	_	Gender=Fem
+
+_	sg	<>	_	_	Number=Sing
+_	du	<>	_	_	Number=Dual
+_	pl	<>	_	_	Number=Plur
+
+# fallback
+_	sym	<>	_	SYM	_

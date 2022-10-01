@@ -1,0 +1,11 @@
+[
+  [ [ %<ant%> | %<cog%> | %<top%> | %<loc%> ] (->) [] ] .o.
+  [ [ %<tn%> | %<pro%> ] (->) [] ] .o.
+  [ %<mf%> (->) [ %<m%> | %<f%> ] ] .o.
+  [ %<sp%> (->) [ %<sg%> | %<pl%> ] ] .o.
+  ! Italian PUD appears to lemmatize adv to adj
+  ! but apertium-ita uses the adv as lemma
+  [ [ {amente} %<adv%> ] (->) [ o %<adv%>::5.0 ] ] .o.
+  ! similarly with participles
+  [ [ [ a r e %<vblex%> ] (->) [ a t o %<adj%>::5.0 ] ] ]
+]

@@ -19,3 +19,12 @@
 [submodule "cg/UD_French-PUD"]
 	path = cg/UD_French-PUD
 	url = git@github.com:UniversalDependencies/UD_French-PUD.git
+[submodule "cg/apertium-eng-ita"]
+	path = cg/apertium-eng-ita
+	url = git@github.com:apertium/apertium-eng-ita.git
+[submodule "cg/apertium-ita"]
+	path = cg/apertium-ita
+	url = git@github.com:apertium/apertium-ita.git
+[submodule "cg/UD_Italian-PUD"]
+	path = cg/UD_Italian-PUD
+	url = git@github.com:UniversalDependencies/UD_Italian-PUD.git

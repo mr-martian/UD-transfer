@@ -5,7 +5,7 @@
 avoir	vbhaver	<>	avoir	AUX	_
 être	vbser	<>	être	AUX	_
 qui	rel.mf.sp	<>	qui	PRON	PronType=Rel
-si	cnjadv		<>	si	ADP	_
+si	cnjadv	<>	si	ADP	_
 donc	cnjadv	<>	donc	ADV	_
 
 # possessives
@@ -20,9 +20,11 @@ son	det.pos	<	son	DET	Person=2|Poss=Yes
 son	det.pos	<	son	DET	Person=3|Poss=Yes
 
 ce	det.dem	<>	ce	DET	_
+plusieurs	det.ind.mf.pl	<>	plusieurs	ADJ	Gender=Masc|Number=Plur
 
 _	adv	<>	_	ADV	_
 _	cnjcoo	<>	_	CCONJ	_
+_	cnjsub	<>	_	SCONJ	_
 _	adj	<>	_	ADJ	_
 _	n	<>	_	NOUN	_
 _	vblex	<>	_	VERB	_
@@ -39,9 +41,11 @@ _	ind	<>	_	_	Definite=Ind
 _	inf	<>	_	_	VerbForm=Inf
 _	cni	<>	_	_	Mood=Cnd|Tense=Pres|VerbForm=Fin
 _	fti	<>	_	_	Mood=Ind|Tense=Fut|VerbForm=Fin
-_	pres	<>	_	_	VerbForm=Fin|Tense=Pres|VerbForm=Fin
-_	past	<>	_	_	VerbForm=Fin|Tense=Past|VerbForm=Fin
-_	pp	<>	_	_	VerbForm=Part|Tense=Past|VerbForm=Fin
+_	pres	<>	_	_	VerbForm=Fin|Tense=Pres
+_	past	<>	_	_	VerbForm=Fin|Tense=Past
+_	pp	<>	_	_	VerbForm=Part|Tense=Past
+_	pii	<>	_	_	Tense=Imp|VerbForm=Fin
+_	ger	<>	_	_	Tense=Pres|VerbForm=Part
 
 _	p1	<>	_	_	Person=1
 _	p2	<>	_	_	Person=2

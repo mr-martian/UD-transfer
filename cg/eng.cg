@@ -1,9 +1,40 @@
+MAPPING-PREFIX = % ;
+
 LIST ADJ = adj ;
 LIST ADV = adv ;
 LIST NOUN = n ;
 LIST VERB = vblex ;
 
+LIST Modals = ("will" vbmod @aux:mood) ("may" vbmod @aux:mood) ("do" vbdo) ;
+LIST HaveAux = ("have" vbhaver @aux:pass) ("have" vbhaver @aux:tense) ;
+LIST BeAux = ("be" vbser @aux:pass) ;
+LIST NotAdv = ("not" adv @advmod) ;
+
+SECTION DoSupport ;
+
+LIST needDo = @needDo ;
+
+ADD needDo VERB - needDo IF (c NotAdv) (NEGATE c Modals) (NEGATE c HaveAux) ;
+
+ADDCOHORT ("<do>" "do" vbdo pres p3 sg) BEFORE VERB + (p3 sg) + needDo
+          IF (NOT -1 (vbdo)) ;
+ADDCOHORT ("<do>" "do" vbdo past) BEFORE VERB + (past) + needDo
+          IF (NOT -1 (vbdo)) ;
+ADDCOHORT ("<do>" "do" vbdo pres) BEFORE VERB + (pres) + needDo - (p3 sg)
+          IF (NOT -1 (vbdo)) ;
+SETPARENT ("<do>" "do" vbdo) (NOT p (*)) TO (1 VERB) ;
+SUBSTITUTE needDo (*) VERB IF (c (vbdo)) ;
+
+LIST DoTags = past pres (pres p3 sg) ;
+SUBSTITUTE DoTags (inf) VERB IF (c (vbdo)) ;
+
 SECTION
+
+REMCOHORT (det def @det) IF (s (@nmod) LINK c ("'s" gen)) ;
+MOVE WITHCHILD (*) (@nmod) (c ("'s" gen))
+     BEFORE WITHCHILD (*) (p NOUN) ;
+
+SET AdjOrPart = ADJ OR (vblex pp @amod) ;
 
 # Move an adjective and all its dependents
 # to before the noun it depends on
@@ -11,22 +42,18 @@ SECTION
 # is the adjective that we're trying to move
 # (this ensures that they end up in the order we probably want
 # when translating noun-adj to adj-noun)
-MOVE WITHCHILD (*) ADJ BEFORE (pA NOUN LINK rrrc ADJ LINK 0 _TARGET_) ;
+MOVE WITHCHILD (*) AdjOrPart
+     BEFORE (pA NOUN LINK rrrc AdjOrPart LINK 0 _TARGET_) ;
 
 SECTION VP ;
-LIST Modals = ("will" vbmod @aux:mood) ("may" vbmod @aux:mood) ("do" vbdo) ;
-LIST HaveAux = ("have" vbhaver @aux:pass) ("have" vbhaver @aux:tense) ;
-LIST NotAdv = ("not" adv @advmod) ;
-
-# TODO: tags not quite right
-ADDCOHORT ("<do>" "do" vbdo pres) BEFORE VERB
-          IF (c NotAdv) (NEGATE c Modals) (NEGATE c HaveAux) ;
-SETPARENT ("<do>" "do" vbdo) (NOT p (*)) TO (1 VERB) ;
+ADD (pp) TARGET BeAux - (pp) IF (s HaveAux) ;
 
 MOVE WITHCHILD (*) Modals BEFORE (p VERB) ;
 MOVE WITHCHILD (*) NotAdv (s Modals) BEFORE (p VERB) ;
 MOVE WITHCHILD (*) HaveAux BEFORE (p VERB) ;
-MOVE WITHCHILD (*) NotAdv (NEGATE s Modals )BEFORE (p VERB) ;
+MOVE WITHCHILD (*) NotAdv (NEGATE s Modals) BEFORE (p VERB) ;
+MOVE WITHCHILD (*) BeAux BEFORE (p VERB) ;
+MOVE WITHCHILD (*) NotAdv (NEGATE s Modals OR HaveAux) BEFORE (p VERB) ;
 
 # TODO: refine this
-MOVE WITHCHILD (*) ADV BEFORE (p VERB) ;
+MOVE WITHCHILD (*) ADV - NotAdv BEFORE (p VERB) ;

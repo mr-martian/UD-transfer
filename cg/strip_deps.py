@@ -19,7 +19,7 @@ def blocks():
 
 dep_tag = re.compile(r'<(#\d+→\d+|@[\w:]+)>')
 add_space = re.compile(r'\$\s*\^')
-rem_space = re.compile(r'\s+(\^@?[,\.?])')
+rem_space = re.compile(r'\s+(\^@?[,\.?;])')
 for block in blocks():
     if not block.strip():
         continue

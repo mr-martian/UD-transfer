@@ -4,6 +4,7 @@ LIST ADJ = adj ;
 LIST NOUN = n ;
 LIST VERB = vblex ;
 LIST VorAUX = vblex vbser vbhaver ;
+LIST DET = det ;
 LIST @aux:pass = @aux:pass ;
 
 LIST Gen = f m ;
@@ -20,15 +21,26 @@ LIST Months = "January" "February" "March" "April" "May" "June"
 
 SECTION
 
+SUBSTITUTE (past) (pp) VERB IF (c @aux:pass) ;
+
 ADD (pp) TARGET VERB - (pp) IF (c @aux:pass) ;
+ADD (pp) TARGET VERB - (pp) IF (0 (sl:adj)) ;
 
 SUBSTITUTE Gen (*) VorAUX ;
 SUBSTITUTE Gen (*) ADJ ;
 SUBSTITUTE Num (*) ADJ ;
 
-REMCOHORT (det def @det) IF (p (np)) ;
-REMCOHORT (det def @det) IF (p (n)) (s (np @appos)) ;
-REMCOHORT (det def @det) IF (p (num)) (s Months) ;
+LIST The = (det def @det) ;
+
+REMCOHORT The IF (p (np)) ;
+REMCOHORT The IF (p (n)) (s (np @appos)) ;
+REMCOHORT The IF (p (num)) (s Months) ;
+REMCOHORT The IF (p Months) ;
+REMCOHORT The IF (p (num @obl)) ;
+REMCOHORT The IF (p (num @nmod)) ;
+REMCOHORT The IF (s (@det:poss)) ;
+
+REMCOHORT ("of" pr) IF (p (num) LINK p Months) ;
 
 ADDCOHORT ("<may>" "may" vbmod pres @aux:mood) BEFORE (cni) ;
 SETPARENT ("may" vbmod) (NOT p (*)) TO (1* VERB) ;
@@ -40,12 +52,24 @@ SUBSTITUTE (fti) (inf) VERB IF (c ("will" vbmod)) ;
 
 SUBSTITUTE (cni) (inf) VorAUX IF (-1 ("may" vbmod)) ;
 
-REMCOHORT ("no" adv @advmod) IF (s ("not" adv @advmod)) ;
+SUBSTITUTE ("no") ("not") (adv @advmod) IF (p VERB) ;
 
 SUBSTITUTE (pii) (past) VorAUX ;
+SUBSTITUTE (ifi) (past) VorAUX ;
 
 SUBSTITUTE Gen (*) VERB ;
 SUBSTITUTE Num (*) VERB + NonInfl OR VorAUX - InflKeep - (vbser) ;
 SUBSTITUTE Pers (*) VERB + NonInfl OR VorAUX - InflKeep - (vbser) ;
 
 SUBSTITUTE Gen (*) NOUN ;
+
+SUBSTITUTE Gen (*) DET ;
+SUBSTITUTE Pers (*) DET ;
+LIST SpecNum = sg pl ;
+SUBSTITUTE SpecNum (*) DET + (sp) ;
+
+SUBSTITUTE ("come" vblex) ("be" vbser) (@aux:pass) ;
+
+#REMCOHORT ("of" pr) IF (p (np @nmod)) (NEGATE s (*)) ;
+#ADDCOHORT ("<'s>" "'s" gen @case) AFTER (np @nmod) IF (NEGATE c (*)) ;
+#SETPARENT ("'s" gen) (NOT p (*)) TO (-1 (np)) ;

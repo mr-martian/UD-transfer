@@ -72,4 +72,52 @@
       </program>
     </pipeline>
   </mode>
+  <mode name="ita-eng" gendebug="yes">
+    <pipeline>
+      <program name="lt-proc -b -L 1">
+        <file name="ita-eng.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="apertium-eng-ita/ita-eng.autolex.bin"/>
+      </program>
+      <program name="./reformat_lus.py" debug-suff="reformat"/>
+      <program name="cg-proc" debug-suff="transfer">
+        <file name="ita-eng.cg.bin"/>
+      </program>
+      <program name="cg-proc -n" debug-suff="reorder">
+        <file name="eng.cg.bin"/>
+      </program>
+      <program name="./strip_deps.py" debug-suff="strip"/>
+      <program name="lt-proc -g">
+        <file name="apertium-eng-ita/ita-eng.autogen.bin"/>
+      </program>
+      <program name="lt-proc -p">
+        <file name="apertium-eng-ita/ita-eng.autopgen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
+  <mode name="ita-eng_clean" gendebug="yes">
+    <pipeline>
+      <program name="lt-proc -b -n -L 1">
+        <file name="ita-eng.autobil.bin"/>
+      </program>
+      <program name="lrx-proc">
+        <file name="apertium-eng-ita/ita-eng.autolex.bin"/>
+      </program>
+      <program name="./reformat_lus.py" debug-suff="reformat"/>
+      <program name="cg-proc" debug-suff="transfer">
+        <file name="ita-eng.cg.bin"/>
+      </program>
+      <program name="cg-proc -n" debug-suff="reorder">
+        <file name="eng.cg.bin"/>
+      </program>
+      <program name="./strip_deps.py" debug-suff="strip"/>
+      <program name="lt-proc -g -n">
+        <file name="apertium-eng-ita/ita-eng.autogen.bin"/>
+      </program>
+      <program name="lt-proc -p">
+        <file name="apertium-eng-ita/ita-eng.autopgen.bin"/>
+      </program>
+    </pipeline>
+  </mode>
 </modes>
