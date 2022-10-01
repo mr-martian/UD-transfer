@@ -1,4 +1,5 @@
 MAPPING-PREFIX = % ;
+OPTIONS += addcohort-attach ;
 
 LIST ADJ = adj ;
 LIST ADV = adv ;
@@ -12,20 +13,15 @@ LIST NotAdv = ("not" adv @advmod) ;
 
 SECTION DoSupport ;
 
-LIST needDo = @needDo ;
-
-ADD needDo VERB - needDo IF (c NotAdv) (NEGATE c Modals) (NEGATE c HaveAux) ;
-
-ADDCOHORT ("<do>" "do" vbdo pres p3 sg) BEFORE VERB + (p3 sg) + needDo
-          IF (NOT -1 (vbdo)) ;
-ADDCOHORT ("<do>" "do" vbdo past) BEFORE VERB + (past) + needDo
-          IF (NOT -1 (vbdo)) ;
-ADDCOHORT ("<do>" "do" vbdo pres) BEFORE VERB + (pres) + needDo - (p3 sg)
-          IF (NOT -1 (vbdo)) ;
-SETPARENT ("<do>" "do" vbdo) (NOT p (*)) TO (1 VERB) ;
-SUBSTITUTE needDo (*) VERB IF (c (vbdo)) ;
-
+SET AnyAux = Modals OR HaveAux OR (vbdo) ;
 LIST DoTags = past pres (pres p3 sg) ;
+
+ADDCOHORT ("<do>" "do" vbdo @aux) BEFORE VERB + DoTags
+          IF (c NotAdv) (NEGATE c AnyAux) ;
+ADD (pres) (vbdo) - (pres) IF (p (pres)) ;
+ADD (past) (vbdo) - (past) IF (p (past)) ;
+ADD (p3 sg) (vbdo) - (p3 sg) IF (p (p3 sg)) ;
+
 SUBSTITUTE DoTags (inf) VERB IF (c (vbdo)) ;
 
 SECTION
